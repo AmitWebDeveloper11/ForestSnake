@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forest Snake | Game</title>
+    <link rel="stylesheet" href="css/main.css" />
+      <link rel="icon" type="image/png" href="public/favicon.png" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c5213, #187634);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .redirect-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .game-title {
+            color: #90EE90;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px #90EE90; }
+            to { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px #90EE90, 0 0 30px #90EE90; }
+        }
+        
+        .loading-text {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        
+        .snake-loader {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(144, 238, 144, 0.3);
+            border-top: 4px solid #90EE90;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .forest-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="forest-bg"></div>
+    <div class="redirect-container">
+        <h1 class="game-title">🐍 Forest Snake Game 🌲</h1>
+        <p class="loading-text">Entering the mystical forest...</p>
+        <div class="snake-loader"></div>
+    </div>
+
+    <script>
+       
+        setTimeout(function() {
+            window.location.href = 'game_play_screen.html';
+        }, 2000);
+        
+        
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+                    window.location.replace('game_play_screen.html');
+                }
+            }, 2500);
+        });
+    </script>
+<script id="dhws-dataInjector" src="/public/dhws-data-injector.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #2D5016;
+  --color-primary-50: #F0F7E8;
+  --color-primary-100: #D9E8C4;
+  --color-primary-200: #B8D18A;
+  --color-primary-300: #97BA50;
+  --color-primary-400: #76A316;
+  --color-primary-500: #2D5016;
+  --color-primary-600: #244010;
+  --color-primary-700: #1B300C;
+  --color-primary-800: #122008;
+  --color-primary-900: #091004;
+
+  --color-secondary: #8B4513;
+  --color-secondary-50: #F5F0E8;
+  --color-secondary-100: #E8D5C4;
+  --color-secondary-200: #D4B18A;
+  --color-secondary-300: #C08D50;
+  --color-secondary-400: #AC6916;
+  --color-secondary-500: #8B4513;
+  --color-secondary-600: #703710;
+  --color-secondary-700: #55290C;
+  --color-secondary-800: #3A1B08;
+  --color-secondary-900: #1F0D04;
+
+  --color-accent: #90EE90;
+  --color-accent-50: #F7FDF7;
+  --color-accent-100: #E8F8E8;
+  --color-accent-200: #D1F1D1;
+  --color-accent-300: #B9EAB9;
+  --color-accent-400: #A2E3A2;
+  --color-accent-500: #90EE90;
+  --color-accent-600: #73BE73;
+  --color-accent-700: #568E56;
+  --color-accent-800: #395E39;
+  --color-accent-900: #1C2F1C;
+
+  --color-background: #1A3009;
+  --color-background-50: #F0F4ED;
+  --color-background-100: #D9E2D1;
+  --color-background-200: #B3C5A3;
+  --color-background-300: #8DA875;
+  --color-background-400: #678B47;
+  --color-background-500: #416E19;
+  --color-background-600: #345815;
+  --color-background-700: #1c3508;
+  --color-background-800: #1A3009;
+  --color-background-900: #193a19;
+
+  --color-surface: #3A5F23;
+  --color-surface-50: #F2F6EF;
+  --color-surface-100: #DDE7D4;
+  --color-surface-200: #BBCFA9;
+  --color-surface-300: #99B77E;
+  --color-surface-400: #779F53;
+  --color-surface-500: #558728;
+  --color-surface-600: #446C20;
+  --color-surface-700: #3A5F23;
+  --color-surface-800: #2A4518;
+  --color-surface-900: #15230C;
+
+  --color-text-primary: #F5F5DC;
+  --color-text-secondary: #D2B48C;
+  --color-text-tertiary: #A0956B;
+
+  --color-success: #32CD32;
+  --color-warning: #DAA520;
+  --color-error: #CD853F;
+
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-heavy: rgba(0, 0, 0, 0.25);
+}
+
+@keyframes scoreFloat {
+  0% { transform: translateY(0px); opacity: 1; }
+  100% { transform: translateY(-10px); opacity: 0; }
+}
+
+@keyframes scalePress {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.animate-score-float {
+  animation: scoreFloat 300ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+.animate-scale-press {
+  animation: scalePress 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.shadow-organic {
+  box-shadow: 0 2px 8px var(--shadow-medium);
+}
+
+.shadow-organic-lg {
+  box-shadow: 0 4px 12px var(--shadow-medium);
+}
+
+.transition-organic {
+  transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.transition-organic-slow {
+  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+.game-active .controls {
+  opacity: 0.7;
+  transition: opacity 200ms ease-in-out;
+}
+
+.game-active .controls:hover,
+.game-active .controls:focus {
+  opacity: 1;
+}
