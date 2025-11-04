@@ -93,7 +93,7 @@
             font-weight: 600;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
             box-shadow: 0 4px 15px rgba(38, 220, 84, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                         inset 0 1px 0 rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             z-index: 9999;
             transition: all 0.3s ease;
@@ -103,7 +103,7 @@
         .creator-credit:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(65, 220, 38, 0.4),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                         inset 0 1px 0 rgba(255, 255, 255, 0.2);
             border-color: #4aef44;
         }
 
@@ -175,6 +175,11 @@
         Your browser does not support the audio element.
     </audio>
 
+    <audio id="clickSound" preload="auto">
+        <source src="public/click.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <div class="min-h-screen flex flex-col items-center justify-between p-4 relative">
         <div class="text-center mb-6 slide-up">
             <h1 class="font-heading text-fluid-4xl text-accent-400 mb-2 drop-shadow-lg">
@@ -229,8 +234,9 @@
         const controlsContainer = document.getElementById('controls-container');
         const bottomHints = document.querySelector('.absolute.bottom-4');
         const hissSound = document.getElementById('hissSound');
+        const clickSound = document.getElementById('clickSound'); // Get the new audio element
 
-     
+      
         let gameState = 'waiting';
         let score = 0;
         let highScore = localStorage.getItem('forestSnakeHighScore') || 0;
@@ -250,7 +256,7 @@
         let dx = 0;
         let dy = 0;
 
-     
+      
         let food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
 
 
@@ -260,10 +266,11 @@
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
             hissSound.load();
+            clickSound.load(); // Load the click sound
             draw();
         }
 
-       
+        
         function resizeCanvas() {
             const availableWidth = window.innerWidth;
             const availableHeight = window.innerHeight;
@@ -300,8 +307,12 @@
             gameStatus.style.pointerEvents = 'none';
         }
 
-       
+        
         function startGame() {
+            // Play click sound when starting the game
+            clickSound.currentTime = 0;
+            clickSound.play().catch(error => console.log("Click audio play failed:", error));
+            
             gameState = 'playing';
             score = 0;
             eggsEaten = 0;
@@ -318,7 +329,7 @@
             gameLoop = setInterval(updateGame, 150);
         }
 
-     
+      
         function getRandomPosition(excludeList = []) {
             let position;
             let isOverlap;
@@ -328,7 +339,7 @@
                     y: Math.floor(Math.random() * tileCount)
                 };
                 isOverlap = snake.some(segment => segment.x === position.x && segment.y === position.y) ||
-                           excludeList.some(item => item.x === position.x && item.y === position.y);
+                            excludeList.some(item => item.x === position.x && item.y === position.y);
             } while (isOverlap);
             return position;
         }
@@ -338,7 +349,7 @@
             food = getRandomPosition();
         }
 
-       
+        
         function generateRat() {
             if (eggsEaten >= RAT_SPAWN_THRESHOLD && rat === null) {
                 rat = getRandomPosition([food]);
@@ -361,7 +372,7 @@
 
             const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
-       
+      
             if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
                 gameOver();
                 return;
@@ -390,7 +401,7 @@
                 hissSound.play().catch(error => console.log("Audio play failed:", error));
             }
 
-     
+      
             if (rat && head.x === rat.x && head.y === rat.y) {
                 score += 50;
                 for (let i = 0; i < 4; i++) {
@@ -423,9 +434,9 @@
             draw();
         }
 
-     
+      
         function draw() {
-         
+          
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradient.addColorStop(0, '#274211');
             gradient.addColorStop(1, '#1A3009');
@@ -502,7 +513,7 @@
                 ctx.restore();
             }
 
-  
+ 
             snake.forEach((segment, index) => {
                 ctx.save();
                 const x = segment.x * gridSize;
@@ -643,9 +654,17 @@
             if (gameState === 'playing') {
                 gameState = 'paused';
                 clearInterval(gameLoop);
+                // Play click sound on pause
+                clickSound.currentTime = 0;
+                clickSound.play().catch(error => console.log("Click audio play failed:", error)); 
+
                 showGameStatus('⏸️ Game Paused', 'Press SPACE or tap to resume');
             } else if (gameState === 'paused') {
                 gameState = 'playing';
+                // Play click sound on resume
+                clickSound.currentTime = 0;
+                clickSound.play().catch(error => console.log("Click audio play failed:", error)); 
+
                 hideGameStatus();
                 gameLoop = setInterval(updateGame, 150);
             }
